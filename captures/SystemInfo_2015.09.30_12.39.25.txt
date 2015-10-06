@@ -1,0 +1,68 @@
+Activity Resolver Table:
+  Non-Data Actions:
+      android.intent.action.MAIN:
+        367d956e com.example.android.sunshine.app/.MainActivity
+
+Receiver Resolver Table:
+  Non-Data Actions:
+      com.google.android.c2dm.intent.RECEIVE:
+        3814540f com.example.android.sunshine.app/.GcmBroadcastReceiver
+
+Service Resolver Table:
+  Non-Data Actions:
+      android.content.SyncAdapter:
+        24de8c9c com.example.android.sunshine.app/.sync.SunshineSyncService
+      android.accounts.AccountAuthenticator:
+        1e4196a5 com.example.android.sunshine.app/.sync.SunshineAuthenticatorService
+
+Permissions:
+  Permission [com.example.android.sunshine.app.permission.C2D_MESSAGE] (6719a7a):
+    sourcePackage=com.example.android.sunshine.app
+    uid=10147 gids=[] type=0 prot=signature
+    packageSetting=PackageSetting{fcc222b com.example.android.sunshine.app/10147}
+    perm=Permission{495d688 com.example.android.sunshine.app.permission.C2D_MESSAGE}
+
+Registered ContentProviders:
+  com.example.android.sunshine.app/.data.WeatherProvider:
+    Provider{1059f821 com.example.android.sunshine.app/.data.WeatherProvider}
+
+ContentProvider Authorities:
+  [com.example.android.sunshine.app]:
+    Provider{1059f821 com.example.android.sunshine.app/.data.WeatherProvider}
+      applicationInfo=ApplicationInfo{2a6ee446 com.example.android.sunshine.app}
+
+Key Set Manager:
+  [com.example.android.sunshine.app]
+      Signing KeySets: 2312
+
+Packages:
+  Package [com.example.android.sunshine.app] (fcc222b):
+    userId=10147 gids=[3003]
+    pkg=Package{2ee8b607 com.example.android.sunshine.app}
+    codePath=/data/app/com.example.android.sunshine.app-1
+    resourcePath=/data/app/com.example.android.sunshine.app-1
+    legacyNativeLibraryDir=/data/app/com.example.android.sunshine.app-1/lib
+    primaryCpuAbi=null
+    secondaryCpuAbi=null
+    versionCode=1 targetSdk=21
+    versionName=1.0
+    splits=[base]
+    applicationInfo=ApplicationInfo{2a6ee446 com.example.android.sunshine.app}
+    flags=[ DEBUGGABLE HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP ]
+    dataDir=/data/data/com.example.android.sunshine.app
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    timeStamp=2015-09-30 12:31:10
+    firstInstallTime=2015-09-30 12:31:11
+    lastUpdateTime=2015-09-30 12:31:11
+    signatures=PackageSignatures{30f5d334 [d3cf55d]}
+    permissionsFixed=true haveGids=true installStatus=1
+    pkgFlags=[ DEBUGGABLE HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP ]
+    User 0:  installed=true hidden=false stopped=false notLaunched=false enabled=0
+    grantedPermissions:
+      com.google.android.c2dm.permission.RECEIVE
+      android.permission.WRITE_SYNC_SETTINGS
+      com.example.android.sunshine.app.permission.C2D_MESSAGE
+      android.permission.AUTHENTICATE_ACCOUNTS
+      android.permission.INTERNET
+      android.permission.ACCESS_NETWORK_STATE
+      android.permission.READ_SYNC_SETTINGS
