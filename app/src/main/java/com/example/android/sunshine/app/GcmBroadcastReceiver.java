@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2015 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.example.android.sunshine.app;
 
 import android.app.NotificationManager;
@@ -9,14 +24,9 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
-
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
-/**
- * Created by littleBIG on 9/30/2015.
- */
-public class GcmBroadcastReceiver extends BroadcastReceiver{
-
+public class GcmBroadcastReceiver extends BroadcastReceiver {
     private final String LOG_TAG = BroadcastReceiver.class.getSimpleName();
 
     private static final String EXTRA_SENDER = "from";
@@ -80,6 +90,4 @@ public class GcmBroadcastReceiver extends BroadcastReceiver{
         mBuilder.setContentIntent(contentIntent);
         mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
     }
-
-
 }

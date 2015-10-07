@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2015 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.example.android.sunshine.app;
 
 import android.content.Context;
@@ -75,35 +90,23 @@ public class ForecastAdapter extends CursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
 
         ViewHolder viewHolder = (ViewHolder) view.getTag();
-
         int weatherId = cursor.getInt(ForecastFragment.COL_WEATHER_CONDITION_ID);
         int fallbackIconId;
         int viewType = getItemViewType(cursor.getPosition());
-
         switch (viewType) {
             case VIEW_TYPE_TODAY: {
                 // Get weather icon
-//                viewHolder.iconView.setImageResource(Utility.getArtResourceForWeatherCondition(
-//                        cursor.getInt(ForecastFragment.COL_WEATHER_CONDITION_ID)));
-
-              //  viewHolder.iconView.setImageResource(Utility.getArtResourceForWeatherCondition(weatherId));
                 fallbackIconId = Utility.getArtResourceForWeatherCondition(
-                                                weatherId);
-
+                        weatherId);
                 break;
             }
-           // case VIEW_TYPE_FUTURE_DAY: {
             default: {
                 // Get weather icon
-//                viewHolder.iconView.setImageResource(Utility.getIconResourceForWeatherCondition(
-//                        cursor.getInt(ForecastFragment.COL_WEATHER_CONDITION_ID)));
-              //  viewHolder.iconView.setImageResource(Utility.getArtResourceForWeatherCondition(weatherId));
-                fallbackIconId = Utility.getArtResourceForWeatherCondition(
-                                               weatherId);
+                fallbackIconId = Utility.getIconResourceForWeatherCondition(
+                        weatherId);
                 break;
             }
         }
-
 
         Glide.with(mContext)
                 .load(Utility.getArtUrlForWeatherCondition(mContext, weatherId))
@@ -111,18 +114,10 @@ public class ForecastAdapter extends CursorAdapter {
                 .crossFade()
                 .into(viewHolder.iconView);
 
-
-
-
         // Read date from cursor
         long dateInMillis = cursor.getLong(ForecastFragment.COL_WEATHER_DATE);
         // Find TextView and set formatted date on it
         viewHolder.dateView.setText(Utility.getFriendlyDayString(context, dateInMillis));
-
-        // Read weather forecast from cursor
-//        String description = cursor.getString(ForecastFragment.COL_WEATHER_DESC);
-        // Find TextView and set weather forecast on it
-
 
         // Get description from weather condition ID
         String description = Utility.getStringForWeatherCondition(context, weatherId);
@@ -130,27 +125,9 @@ public class ForecastAdapter extends CursorAdapter {
         viewHolder.descriptionView.setText(description);
         viewHolder.descriptionView.setContentDescription(context.getString(R.string.a11y_forecast, description));
 
-
-
-        // *new comment:For accessibility, we don't want a content description for the icon field
+        // For accessibility, we don't want a content description for the icon field
         // because the information is repeated in the description view and the icon
-
         // is not individually selectable
-/*        // For accessibility, add a content description to the icon field
-        viewHolder.iconView.setContentDescription(description);*/
-/*
-        // Read user preference for metric or imperial temperature units
-        boolean isMetric = Utility.isMetric(context);*/
-
-        // Read high temperature from cursor
-/*        double high = cursor.getDouble(ForecastFragment.COL_WEATHER_MAX_TEMP);
-        viewHolder.highTempView.setText(Utility.formatTemperature(context, high));
-
-        // Read low temperature from cursor
-        double low = cursor.getDouble(ForecastFragment.COL_WEATHER_MIN_TEMP);
-        viewHolder.lowTempView.setText(Utility.formatTemperature(context, low));*/
-
-
 
         // Read high temperature from cursor
         String high = Utility.formatTemperature(
@@ -163,9 +140,6 @@ public class ForecastAdapter extends CursorAdapter {
                 context, cursor.getDouble(ForecastFragment.COL_WEATHER_MIN_TEMP));
         viewHolder.lowTempView.setText(low);
         viewHolder.lowTempView.setContentDescription(context.getString(R.string.a11y_low_temp, low));
-
-
-
     }
 
     public void setUseTodayLayout(boolean useTodayLayout) {

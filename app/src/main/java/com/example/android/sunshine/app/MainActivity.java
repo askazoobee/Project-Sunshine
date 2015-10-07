@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2014 The Android Open Source Project
+ * Copyright (C) 2015 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,7 +24,8 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,7 +37,7 @@ import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import java.io.IOException;
 
-public class MainActivity extends ActionBarActivity implements ForecastFragment.Callback {
+public class MainActivity extends AppCompatActivity implements ForecastFragment.Callback {
 
     private final String LOG_TAG = MainActivity.class.getSimpleName();
     private static final String DETAILFRAGMENT_TAG = "DFTAG";
@@ -44,8 +45,11 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
     public static final String PROPERTY_REG_ID = "registration_id";
     private static final String PROPERTY_APP_VERSION = "appVersion";
 
-    static final String PROJECT_NUMBER = "503790257175";
-
+    /**
+     * Substitute you own project number here. This project number comes
+     * from the Google Developers Console.
+     */
+    static final String PROJECT_NUMBER = "Your Project Number";
 
     private boolean mTwoPane;
     private String mLocation;
@@ -57,6 +61,10 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
         mLocation = Utility.getPreferredLocation(this);
 
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         if (findViewById(R.id.weather_detail_container) != null) {
             // The detail container view will be present only in the large-screen layouts
             // (res/layout-sw600dp). If this view is present, then the activity should be
@@ -81,7 +89,6 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
 
         SunshineSyncAdapter.initializeSyncAdapter(this);
 
-
         // If Google Play Services is not available, some features, such as GCM-powered weather
         // alerts, will not be available.
         if (checkPlayServices()) {
@@ -90,10 +97,10 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
 
             if (PROJECT_NUMBER.equals("Your Project Number")) {
                 new AlertDialog.Builder(this)
-                        .setTitle("Needs Project Number")
-                        .setMessage("GCM will not function in Sunshine until you set the Project Number to the one from the Google Developers Console.")
-                        .setPositiveButton(android.R.string.ok, null)
-                        .create().show();
+                .setTitle("Needs Project Number")
+                .setMessage("GCM will not function in Sunshine until you set the Project Number to the one from the Google Developers Console.")
+                .setPositiveButton(android.R.string.ok, null)
+                .create().show();
             } else if (regId.isEmpty()) {
                 registerInBackground(this);
             }
@@ -102,8 +109,6 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
             // Store regID as null
             storeRegistrationId(this, null);
         }
-
-
     }
 
     @Override
@@ -125,7 +130,6 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
             startActivity(new Intent(this, SettingsActivity.class));
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -134,16 +138,14 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
         super.onResume();
 
         // If Google Play Services is not available, some features, such as GCM-powered weather
-            // alerts, will not be available.
+        // alerts, will not be available.
         if (!checkPlayServices()) {
             // Store regID as null
         }
 
-        String location = Utility.getPreferredLocation( this );
-
-
+        String location = Utility.getPreferredLocation(this);
         // update the location in our second pane using the fragment manager
-            if (location != null && !location.equals(mLocation)) {
+        if (location != null && !location.equals(mLocation)) {
             ForecastFragment ff = (ForecastFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_forecast);
             if ( null != ff ) {
                 ff.onLocationChanged();
@@ -177,7 +179,6 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
             startActivity(intent);
         }
     }
-
 
     /**
      * Check the device to make sure it has the Google Play Services APK. If
@@ -263,7 +264,6 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
             protected Void doInBackground(Void... params) {
                 String msg = "";
                 try {
-
                     if (mGcm == null) {
                         mGcm = GoogleCloudMessaging.getInstance(context);
                     }
@@ -282,6 +282,7 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
                     // Persist the registration ID - no need to register again.
                     storeRegistrationId(context, regId);
                 } catch (IOException ex) {
+                    msg = "Error :" + ex.getMessage();
                     // TODO: If there is an error, don't just keep trying to register.
                     // Require the user to click a button again, or perform
                     // exponential back-off.
@@ -301,15 +302,10 @@ public class MainActivity extends ActionBarActivity implements ForecastFragment.
     private void storeRegistrationId(Context context, String regId) {
         final SharedPreferences prefs = getGCMPreferences(context);
         int appVersion = getAppVersion(context);
-        Log.i(LOG_TAG, "Saving regId on app version " + appVersion + "reg_id:" + regId);
+        Log.i(LOG_TAG, "Saving regId on app version " + appVersion);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putString(PROPERTY_REG_ID, regId);
         editor.putInt(PROPERTY_APP_VERSION, appVersion);
         editor.commit();
     }
-
-
-
-
-
 }
