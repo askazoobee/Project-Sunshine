@@ -62,6 +62,13 @@
 
     <!-- Strings for formatting weather-related data -->
 
+    <!-- Label for the api preference [CHAR LIMIT=30] -->
+    <string name="pref_api_label">API key</string>
+    <!-- Key name for storing api in SharedPreferences [CHAR LIMIT=NONE] -->
+    <string name="pref_api_key">api_key</string>
+    <!-- enter your api key here-->
+    <string name="pref_api_key_default" translatable="false">enter key here</string>
+
     <!-- Label for the temperature units preference [CHAR LIMIT=30] -->
     <string name="pref_units_label">Temperature Units</string>
 
@@ -221,5 +228,6 @@
 
     <!-- For Shared Element Transitions -->
     <string name="detail_icon_transition_name" translatable="false">TN_DetailIcon</string>
+
 
 </resources>

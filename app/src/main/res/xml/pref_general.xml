@@ -28,6 +28,14 @@
         android:singleLine="true"
         custom:minLength="3"/>
 
+    <com.example.android.sunshine.app.LocationEditTextPreference
+        android:title="@string/pref_api_label"
+        android:key="@string/pref_api_key"
+        android:defaultValue="@string/pref_api_key_default"
+        android:inputType="text"
+        android:singleLine="true"
+        custom:minLength="3"/>
+
     <ListPreference
         android:title="@string/pref_units_label"
         android:key="@string/pref_units_key"

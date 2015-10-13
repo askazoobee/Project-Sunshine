@@ -17,9 +17,11 @@ package com.example.android.sunshine.app;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
+import android.support.v4.content.res.ResourcesCompat;
 import android.text.format.Time;
 
 import com.example.android.sunshine.app.sync.SunshineSyncAdapter;
@@ -35,6 +37,13 @@ public class Utility {
         return prefs.getString(context.getString(R.string.pref_location_key),
                 context.getString(R.string.pref_location_default));
     }
+
+    public static String getPreferredAPI(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        return prefs.getString(context.getString(R.string.pref_api_key),
+                context.getString(R.string.pref_api_key_default));
+    }
+
 
     public static boolean isMetric(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -575,4 +584,6 @@ public class Utility {
         spe.putInt(c.getString(R.string.pref_location_status_key), SunshineSyncAdapter.LOCATION_STATUS_UNKNOWN);
         spe.apply();
     }
+
+
 }

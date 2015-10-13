@@ -113,20 +113,24 @@ public class SunshineSyncAdapter extends AbstractThreadedSyncAdapter {
             // http://openweathermap.org/API#forecast
             final String FORECAST_BASE_URL =
                     "http://api.openweathermap.org/data/2.5/forecast/daily?";
-            final String QUERY_PARAM = "q";
+            final String QUERY_PARAM = "zip";
+            final String COUNTRY_PARAM = "country";
             final String FORMAT_PARAM = "mode";
             final String UNITS_PARAM = "units";
             final String DAYS_PARAM = "cnt";
+            final String API_PARAM = "APPID";
 
             Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
                     .appendQueryParameter(QUERY_PARAM, locationQuery)
+                    .appendQueryParameter(COUNTRY_PARAM,"US")
                     .appendQueryParameter(FORMAT_PARAM, format)
                     .appendQueryParameter(UNITS_PARAM, units)
                     .appendQueryParameter(DAYS_PARAM, Integer.toString(numDays))
+                    .appendQueryParameter(API_PARAM,Utility.getPreferredAPI(getContext()))
                     .build();
 
             URL url = new URL(builtUri.toString());
-
+            Log.d(LOG_TAG, "url built " + url +" created");
             // Create the request to OpenWeatherMap, and open the connection
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
